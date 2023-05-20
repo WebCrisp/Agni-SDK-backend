@@ -130,7 +130,7 @@ class SyncConsumerApi(SyncConsumer):
         print("websocket Connected...", event)
 
         print("Channel Layer", self.channel_layer)
-        print("Channel Name", self.channel_name)
+        # print("Channel Name", self.channel_name)
 
         print(self.scope, 'scope here')
         self.send({

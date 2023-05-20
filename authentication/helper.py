@@ -1,6 +1,7 @@
 from . import models, serializers
 from rest_framework_simplejwt.tokens import RefreshToken, AccessToken
 from rest_framework.response import Response
+from django.contrib.auth import authenticate, login
 
 def signInAccount(request):
     email = request.data.get('email', None)
@@ -12,7 +13,7 @@ def signInAccount(request):
             'msg': 'email and password required'
         }, status=404)
 
-    user = models.UserProfile.objects.filter(email=email).first()
+    user = authenticate(request, email=email, password=password)
 
     if not user:
         return {

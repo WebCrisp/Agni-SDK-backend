@@ -124,18 +124,19 @@ TEMPLATES = [
 # WSGI_APPLICATION = "sdk_main.wsgi.application"
 ASGI_APPLICATION = "sdk_main.asgi.application"
 
-MONGO_URI = os.getenv('MONGO_URI')
-PASSWORD = os.getenv('PASSWORD')
-USERNAME = os.getenv('USERNAME')
+DB_NAME = os.environ.get('DB_NAME')
+PASSWORD = os.environ.get('DB_PASS')
+USERNAME = os.environ.get('DB_USER')
+DB_HOST = os.environ.get('DB_HOST')
 
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
-        'NAME': 'django',
+        'NAME': DB_NAME,
         'CLIENT': {
-            'host': "mongodb+srv://jatin21ai:wZMjBcTb2No6TpRO@cluster1.bxuv5nq.mongodb.net/?retryWrites=true&w=majority",
-            'username': "jatin21ai",
-            'password': "wZMjBcTb2No6TpRO",
+            'host': DB_HOST,
+            'username': USERNAME,
+            'password': PASSWORD,
         },
     }
 }
@@ -200,3 +201,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = 'authentication.UserProfile'
 AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend',]
+
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://localhost:6379/0')   
+CELERY_RESULT_BACKEND = os.environ.get('CELERY_BROKER', 'redis://localhost:6379/0')

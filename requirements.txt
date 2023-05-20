@@ -1,9 +1,11 @@
-asgiref==3.6.0
 channels==3.0.4
+celery
 Django==4.0.0
 django-mongodb-engine==0.6.0
 djangorestframework==3.14.0
 djangorestframework-jwt==1.11.0
+djangorestframework-simplejwt==5.2.2
+django_filter==23.2
 djangotoolbox==1.8.0
 djongo==1.3.6
 dnspython==2.3.0

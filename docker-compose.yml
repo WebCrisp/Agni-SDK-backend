@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  django:
+    build: .
+    container_name: backend-sdk
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./app:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=1
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1
+      - CELERY_BROKER=redis://redis:6379/0
+      - CELERY_BACKEND=redis://redis:6379/0
+      - DB_HOST=mongodb+srv://jatin21ai:wZMjBcTb2No6TpRO@cluster1.bxuv5nq.mongodb.net/?retryWrites=true&w=majority
+      - DB_NAME=django
+      - DB_USER=jatin21ai
+      - DB_PASS=wZMjBcTb2No6TpRO 
+    depends_on:
+      - redis
+  
+  celery:
+    build: .
+    command: celery -A sdk_main worker -l INFO
+    volumes:
+      - ./app:/app
+    depends_on:
+      - django
+      - redis
+  
+  redis:
+    image: "redis:alpine"

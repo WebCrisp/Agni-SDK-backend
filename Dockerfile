@@ -7,4 +7,4 @@ COPY . ./usr/src/app
 WORKDIR /usr/src/app
 
 # Install dependencies
-RUN PYTHONPATH=/usr/bin/python pip install -r requirements.txt
+RUN pip install -r requirements.txt

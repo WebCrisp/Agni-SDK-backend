@@ -87,7 +87,8 @@ def set_username(sender, instance, **kwargs):
         instance.username = f"{instance.first_name}_{instance.last_name[0]}"
 
 class Projects(models.Model):
-    project_id = models.UUIDField(default=uuid.uuid1(), primary_key=True)
+    # make a UUID using an MD5 hash of a namespace UUID and a name
+    project_id = models.UUIDField(default=uuid.uuid3(uuid.NAMESPACE_DNS, 'secret'), primary_key=True)
     user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     description = models.TextField()
